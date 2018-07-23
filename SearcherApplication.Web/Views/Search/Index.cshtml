@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("GetSearchResults", "Search", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td><p>Введите свое имя </p></td>
+            <td><input type="text" name="query" /> </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Отправить" /> </td>
+            <td></td>
+        </tr>
+    </table>
+}

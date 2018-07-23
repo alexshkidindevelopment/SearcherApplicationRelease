@@ -4,6 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.Web", "SearcherApplication.Web\SearcherApplication.Web.csproj", "{FE54DFAE-62CC-445A-81E4-A95B8196F25E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B5515D5-C178-48B7-8E0C-702C432EA8FF} = {4B5515D5-C178-48B7-8E0C-702C432EA8FF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.Models", "SearcherApplication.Models\SearcherApplication.Models.csproj", "{4B5515D5-C178-48B7-8E0C-702C432EA8FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.DAL", "SearcherApplication.DAL\SearcherApplication.DAL.csproj", "{D72B5022-E34A-4E6A-B9BD-B58A7A041C35}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B5515D5-C178-48B7-8E0C-702C432EA8FF} = {4B5515D5-C178-48B7-8E0C-702C432EA8FF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.BLL", "SearcherApplication.BLL\SearcherApplication.BLL.csproj", "{CF5E709A-8908-448B-8568-3D02CF57195D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D72B5022-E34A-4E6A-B9BD-B58A7A041C35} = {D72B5022-E34A-4E6A-B9BD-B58A7A041C35}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +30,18 @@ Global
 		{FE54DFAE-62CC-445A-81E4-A95B8196F25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE54DFAE-62CC-445A-81E4-A95B8196F25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE54DFAE-62CC-445A-81E4-A95B8196F25E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B5515D5-C178-48B7-8E0C-702C432EA8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B5515D5-C178-48B7-8E0C-702C432EA8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B5515D5-C178-48B7-8E0C-702C432EA8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B5515D5-C178-48B7-8E0C-702C432EA8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D72B5022-E34A-4E6A-B9BD-B58A7A041C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72B5022-E34A-4E6A-B9BD-B58A7A041C35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72B5022-E34A-4E6A-B9BD-B58A7A041C35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72B5022-E34A-4E6A-B9BD-B58A7A041C35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5E709A-8908-448B-8568-3D02CF57195D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5E709A-8908-448B-8568-3D02CF57195D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5E709A-8908-448B-8568-3D02CF57195D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5E709A-8908-448B-8568-3D02CF57195D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
