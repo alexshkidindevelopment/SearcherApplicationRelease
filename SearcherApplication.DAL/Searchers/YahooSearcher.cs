@@ -7,7 +7,7 @@ namespace SearcherApplication.DAL.Searchers
 {
     public class YahooSearcher : ISearcher
     {
-        public List<SearchResult> StartSearch(string query, string apiKey, string searchEngineId)
+        public List<SearchResult> GetSearchResults(string query, string apiKey, string searchEngineId)
         {
             throw new NotImplementedException();
         }

@@ -2,7 +2,7 @@
 
 namespace SearcherApplication.Models.DataModels
 {
-    public class SearchSystem
+    public class SearchEngineSettings
     {
         public int Id { get; set; }
 

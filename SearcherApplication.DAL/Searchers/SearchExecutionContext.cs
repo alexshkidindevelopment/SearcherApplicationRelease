@@ -10,16 +10,16 @@ namespace SearcherApplication.DAL.Searchers
 {
     public class SearchExecutionContext
     {
-        public ISearcher ContextSearcher { get; set; }
+        private readonly ISearcher _contextSearcher;
 
         public SearchExecutionContext(ISearcher _searcher)
         {
-            ContextSearcher = _searcher;
+            _contextSearcher = _searcher;
         }
 
         public List<SearchResult> ExecuteSearch(string query, string apiKey, string searchEngineId)
         {
-            List<SearchResult> results = ContextSearcher.StartSearch(query, apiKey, searchEngineId);
+            List<SearchResult> results = _contextSearcher.GetSearchResults(query, apiKey, searchEngineId);
             return results;
         }
     }

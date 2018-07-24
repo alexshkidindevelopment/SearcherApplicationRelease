@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\SearchContext.cs" />
+    <Compile Include="Infrastructure\SearchHistoryStorageContext.cs" />
     <Compile Include="Infrastructure\SearchContextInitializer.cs" />
     <Compile Include="Interfaces\ISearcher.cs" />
     <Compile Include="Interfaces\ISearchRepository.cs" />

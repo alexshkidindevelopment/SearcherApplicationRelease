@@ -1,8 +1,10 @@
-﻿using SearcherApplication.DAL.Infrastructure;
+﻿using Newtonsoft.Json;
+using SearcherApplication.DAL.Infrastructure;
 using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.DAL.Searchers;
 using SearcherApplication.Models.DataModels;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,23 +12,24 @@ namespace SearcherApplication.DAL.Repositories
 {
     public class SearchRepository : ISearchRepository
     {
-        private SearchContext _context;
+        private readonly SearchHistoryStorageContext _context;
 
         public SearchRepository()
         {
-            _context = new SearchContext();
+            _context = new SearchHistoryStorageContext();
         }
 
         async public Task<List<SearchResult>> GetSearchResults(string query)
         {
-            List<SearchSystem> searchSystems = _context.SearchSystems.ToList();
+            string parameter = ConfigurationManager.AppSettings["SearchSystems"];
+            List<SearchEngineSettings> searchSystems = JsonConvert.DeserializeObject<List<SearchEngineSettings>>(parameter);
+
             IEnumerable<Task<List<SearchResult>>> tasks = searchSystems.Select(s =>
             {
                 return ProcessSearchRequest(s, query);
             });
             List<Task<List<SearchResult>>> downloadTasks = tasks.ToList();
-
-
+            
             while (downloadTasks.Count > 0)
             {
                 Task<List<SearchResult>> firstFinishedTask = await Task.WhenAny(downloadTasks);
@@ -37,7 +40,7 @@ namespace SearcherApplication.DAL.Repositories
             return null;
         }
 
-        async Task<List<SearchResult>> ProcessSearchRequest(SearchSystem system, string query)
+        async Task<List<SearchResult>> ProcessSearchRequest(SearchEngineSettings system, string query)
         {
             SearchExecutionContext searchExecutionContext;
             List<SearchResult> results = new List<SearchResult>();

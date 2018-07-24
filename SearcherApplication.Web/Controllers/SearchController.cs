@@ -8,7 +8,7 @@ namespace SearcherApplication.Web.Controllers
 {
     public class SearchController : Controller
     {
-        private ISearchService _searchService;
+        private readonly ISearchService _searchService;
 
         public SearchController(ISearchService searchService)
         {
@@ -22,10 +22,9 @@ namespace SearcherApplication.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetSearchResults(string query)
+        async public Task<ActionResult> GetSearchResults(string query)
         {
-            Task<List<SearchResult>> results = _searchService.GetSearchResults(query);
-            return View(results);
+            return View(await _searchService.GetSearchResults(query));
         }
     }
 }

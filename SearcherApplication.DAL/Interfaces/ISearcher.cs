@@ -5,6 +5,6 @@ namespace SearcherApplication.DAL.Interfaces
 {
     public interface ISearcher
     {
-        List<SearchResult> StartSearch(string query, string apiKey, string searchEngineId);
+        List<SearchResult> GetSearchResults(string query, string apiKey, string searchEngineId);
     }
 }

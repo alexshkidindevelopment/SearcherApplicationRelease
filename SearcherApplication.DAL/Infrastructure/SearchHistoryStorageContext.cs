@@ -3,14 +3,14 @@ using System.Data.Entity;
 
 namespace SearcherApplication.DAL.Infrastructure
 {
-    public class SearchContext : DbContext
+    public class SearchHistoryStorageContext : DbContext
     {
-        static SearchContext()
+        static SearchHistoryStorageContext()
         {
             Database.SetInitializer(new SearchContextInitializer());
         }
 
-        public SearchContext()
+        public SearchHistoryStorageContext()
             : base("DbConnection")
         { }
 
@@ -18,6 +18,6 @@ namespace SearcherApplication.DAL.Infrastructure
 
         public DbSet<SearchQuery> SearchQueries { get; set; }
 
-        public DbSet<SearchSystem> SearchSystems { get; set; }
+        //public DbSet<SearchSystem> SearchSystems { get; set; }
     }
 }

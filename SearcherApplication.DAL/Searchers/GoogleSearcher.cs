@@ -10,12 +10,14 @@ namespace SearcherApplication.DAL.Searchers
 {
     public class GoogleSearcher : ISearcher
     {
-        public List<SearchResult> StartSearch(string query, string apiKey, string searchEngineId)
+        private int _numberOfPage = 1;
+
+        public List<SearchResult> GetSearchResults(string query, string apiKey, string searchEngineId)
         {
             var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
             var listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = searchEngineId;
-            listRequest.Start = 1;
+            listRequest.Start = _numberOfPage;
             List<Result> unmappedResults = listRequest.Execute().Items.ToList();
 
             List<SearchResult> results = new List<SearchResult>();
