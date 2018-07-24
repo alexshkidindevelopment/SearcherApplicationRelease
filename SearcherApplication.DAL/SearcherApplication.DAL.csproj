@@ -72,14 +72,9 @@
   <ItemGroup>
     <Compile Include="Infrastructure\SearchHistoryStorageContext.cs" />
     <Compile Include="Infrastructure\SearchContextInitializer.cs" />
-    <Compile Include="Interfaces\ISearcher.cs" />
     <Compile Include="Interfaces\ISearchRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SearchRepository.cs" />
-    <Compile Include="Searchers\BingSearcher.cs" />
-    <Compile Include="Searchers\GoogleSearcher.cs" />
-    <Compile Include="Searchers\SearchExecutionContext.cs" />
-    <Compile Include="Searchers\YahooSearcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

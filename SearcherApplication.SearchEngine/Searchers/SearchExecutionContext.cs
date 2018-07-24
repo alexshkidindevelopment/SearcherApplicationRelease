@@ -1,12 +1,12 @@
-﻿using SearcherApplication.DAL.Interfaces;
-using SearcherApplication.Models.DataModels;
+﻿using SearcherApplication.Models.DataModels;
+using SearcherApplication.SearchEngine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SearcherApplication.DAL.Searchers
+namespace SearcherApplication.SearchEngine.Searchers
 {
     public class SearchExecutionContext
     {
@@ -17,9 +17,9 @@ namespace SearcherApplication.DAL.Searchers
             _contextSearcher = _searcher;
         }
 
-        public List<SearchResult> ExecuteSearch(string query, string apiKey, string searchEngineId)
+        async public Task<List<SearchResult>> ExecuteSearch(string query)
         {
-            List<SearchResult> results = _contextSearcher.GetSearchResults(query, apiKey, searchEngineId);
+            List<SearchResult> results = await _contextSearcher.GetSearchResults(query);
             return results;
         }
     }

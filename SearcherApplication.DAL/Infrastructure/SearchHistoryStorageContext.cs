@@ -11,7 +11,7 @@ namespace SearcherApplication.DAL.Infrastructure
         }
 
         public SearchHistoryStorageContext()
-            : base("DbConnection")
+            : base("SearchHistoryStorage")
         { }
 
         public DbSet<SearchResult> SearchedResults { get; set; }
