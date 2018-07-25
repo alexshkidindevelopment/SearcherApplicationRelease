@@ -8,8 +8,6 @@ namespace SearcherApplication.SearchEngine.Searchers
 {
     public class YahooSearcher : ISearcher
     {
-        private readonly string _yahooUrl = "https://search.yahoo.com/search?";
-        
         private readonly string _apiKey;
 
         public YahooSearcher(string apiKey)

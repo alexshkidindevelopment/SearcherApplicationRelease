@@ -32,6 +32,11 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         private List<SearchResult> Map(Search search)
         {
+            if (search.Items == null)
+            {
+                return null;
+            }
+
             List<SearchResult> results = new List<SearchResult>();
             foreach (Result result in search.Items)
             {

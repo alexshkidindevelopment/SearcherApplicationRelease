@@ -1,9 +1,8 @@
 ﻿using SearcherApplication.DAL.Infrastructure;
 using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace SearcherApplication.DAL.Repositories
 {
@@ -16,9 +15,20 @@ namespace SearcherApplication.DAL.Repositories
             _context = new SearchHistoryStorageContext();
         }
 
-        public async Task<List<SearchResult>> GetSearchResults(string query)
+        public void AddSearchResults(List<SearchResult> results, string query)
         {
-            throw new NotImplementedException();
+            var searchQuery = new SearchQuery
+            {
+                QueryText = query
+            };
+
+            var queries = _context.SearchQueries.ToList();
+
+            _context.SearchQueries.Add(searchQuery);
+            _context.SaveChanges();
+            results = results.Select(c => { c.SearchQueryId = searchQuery.Id; return c; }).ToList();
+            _context.SearchedResults.AddRange(results);
+            _context.SaveChanges();
         }
     }
 }

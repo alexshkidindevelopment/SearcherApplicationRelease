@@ -25,9 +25,9 @@ namespace SearcherApplication.BLL.Services
             string searchSystemsJson = ConfigurationManager.AppSettings["SearchSystems"];
             List<SearchEngineSettings> searchSystems = JsonConvert.DeserializeObject<List<SearchEngineSettings>>(searchSystemsJson);
 
-            var googleSearchEnabled = true;//bool.Parse(ConfigurationManager.AppSettings["sdsd"]);
-            var yahooSearchEnabled = true; // web config <appsettings> TODO LATER
+            var googleSearchEnabled = true;//bool.Parse(ConfigurationManager.AppSettings["sdsd"]); web config <appsettings> TODO LATER
             var bingSearchEnabled = true;
+            //var yahooSearchEnabled = true;
 
             var searchTasks = new List<Task<List<SearchResult>>>();
 
@@ -42,20 +42,27 @@ namespace SearcherApplication.BLL.Services
 
             SearchEngineSettings googleSearchSystem = searchSystems.Where(s => s.Name == "Google").First();
             SearchEngineSettings bingSearchSystem = searchSystems.Where(s => s.Name == "Bing").First();
-            SearchEngineSettings yahooSearchSystem = searchSystems.Where(s => s.Name == "Yahoo").First();
+            //SearchEngineSettings yahooSearchSystem = searchSystems.Where(s => s.Name == "Yahoo").First();
 
             ISearcher googleSearcher = new GoogleSearcher(googleSearchSystem.ApiKey, googleSearchSystem.SearchEngineId);
             ISearcher bingSearcher = new BingSearcher(bingSearchSystem.ApiKey);
-            ISearcher yahooSearcher = new YahooSearcher(yahooSearchSystem.ApiKey);
+            //ISearcher yahooSearcher = new YahooSearcher(yahooSearchSystem.ApiKey);
 
-            //registerTask(googleSearchEnabled, googleSearcher);
-            //registerTask(bingSearchEnabled, bingSearcher);
-            registerTask(yahooSearchEnabled, yahooSearcher);
+            registerTask(googleSearchEnabled, googleSearcher);
+            registerTask(bingSearchEnabled, bingSearcher);
+            //registerTask(yahooSearchEnabled, yahooSearcher);
 
             var firstExecutedTask = await Task.WhenAny(searchTasks);
-            var searchResult = await firstExecutedTask;
+            List<SearchResult> searchResults = await firstExecutedTask;
 
-            return searchResult;
+            if(searchResults == null)
+            {
+                return null;
+            }
+
+            _searchRepository.AddSearchResults(searchResults, query);
+
+            return searchResults;
         }
     }
 }

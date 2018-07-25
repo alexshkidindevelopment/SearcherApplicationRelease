@@ -39,6 +39,11 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         private List<SearchResult> Map(BingResultModel search)
         {
+            if (search.webPages == null)
+            {
+                return null;
+            }
+
             List<SearchResult> results = new List<SearchResult>();
             foreach (BingSearchResult result in search.webPages.value)
             {
