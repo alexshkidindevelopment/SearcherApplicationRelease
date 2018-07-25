@@ -16,7 +16,7 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         private readonly string _searchEngineId;
 
-        private readonly int _numberOfPage = 1;
+        private const int _numberOfPage = 1;
 
         public GoogleSearcher(string apiKey, string searchEngineId)
         {
@@ -26,10 +26,7 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         public async Task<List<SearchResult>> GetSearchResults(string query)
         {
-            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = _apiKey });
-            ListRequest listRequest = customSearchService.Cse.List(query);
-            listRequest.Cx = _searchEngineId;
-            listRequest.Start = _numberOfPage;
+            ListRequest listRequest = CreateListRequest(query);
             return await Task.Run(() => { return Map(listRequest.Execute()); });
         }
 
@@ -47,6 +44,15 @@ namespace SearcherApplication.SearchEngine.Searchers
             }
 
             return results;
+        }
+
+        private ListRequest CreateListRequest(string query)
+        {
+            var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = _apiKey });
+            ListRequest listRequest = customSearchService.Cse.List(query);
+            listRequest.Cx = _searchEngineId;
+            listRequest.Start = _numberOfPage;
+            return listRequest;
         }
     }
 }

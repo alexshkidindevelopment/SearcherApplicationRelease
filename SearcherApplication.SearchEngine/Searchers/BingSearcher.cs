@@ -13,7 +13,7 @@ namespace SearcherApplication.SearchEngine.Searchers
     {
         private readonly string _apiKey;
         private readonly string _bingUrl = "https://api.cognitive.microsoft.com/bing/v7.0/search";
-        private readonly int _countOfRecords = 10;
+        private const int _countOfRecords = 10;
 
         public BingSearcher(string apiKey)
         {
@@ -22,19 +22,19 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         public async Task<List<SearchResult>> GetSearchResults(string query)
         {
-            string uriQuery = _bingUrl + "?q=" + Uri.EscapeDataString(query) + "&count=" + _countOfRecords;
-            WebRequest wbReq = WebRequest.Create(uriQuery);
-            wbReq.Headers["Ocp-Apim-Subscription-Key"] = _apiKey;
-            var hResp = (HttpWebResponse)wbReq.GetResponseAsync().Result;
-            string strJSON;
+            WebRequest wbReq = CreateRequest(query);
 
-            using (var reader = new StreamReader(hResp.GetResponseStream()))
+            using (var hResp = await wbReq.GetResponseAsync() as HttpWebResponse)
             {
-                strJSON = reader.ReadToEnd();
-            }
+                string strJSON;
+                using (var reader = new StreamReader(hResp.GetResponseStream()))
+                {
+                    strJSON = reader.ReadToEnd();
+                }
 
-            BingResultModel result = JsonConvert.DeserializeObject<BingResultModel>(strJSON);
-            return await Task.Run(() => { return Map(result); });
+                BingResultModel result = JsonConvert.DeserializeObject<BingResultModel>(strJSON);
+                return await Task.Run(() => { return Map(result); });
+            }
         }
 
         private List<SearchResult> Map(BingResultModel search)
@@ -51,6 +51,14 @@ namespace SearcherApplication.SearchEngine.Searchers
             }
 
             return results;
+        }
+
+        private WebRequest CreateRequest(string query)
+        {
+            string uriQuery = $"{_bingUrl}?q={Uri.EscapeDataString(query)}&count={_countOfRecords}";
+            WebRequest wbReq = WebRequest.Create(uriQuery);
+            wbReq.Headers["Ocp-Apim-Subscription-Key"] = _apiKey;
+            return wbReq;
         }
     }
 }

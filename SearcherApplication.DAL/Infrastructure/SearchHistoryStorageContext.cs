@@ -17,7 +17,5 @@ namespace SearcherApplication.DAL.Infrastructure
         public DbSet<SearchResult> SearchedResults { get; set; }
 
         public DbSet<SearchQuery> SearchQueries { get; set; }
-
-        //public DbSet<SearchSystem> SearchSystems { get; set; }
     }
 }

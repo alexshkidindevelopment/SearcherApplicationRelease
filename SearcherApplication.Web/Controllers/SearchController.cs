@@ -22,7 +22,7 @@ namespace SearcherApplication.Web.Controllers
         }
 
         [HttpPost]
-        async public Task<ActionResult> GetSearchResults(string query)
+        public async Task<ActionResult> GetSearchResults(string query)
         {
             return View(await _searchService.GetSearchResults(query));
         }

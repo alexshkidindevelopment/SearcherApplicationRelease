@@ -20,7 +20,7 @@ namespace SearcherApplication.BLL.Services
             _searchRepository = searchRepository;
         }
 
-        async public Task<List<SearchResult>> GetSearchResults(string query)
+        public async Task<List<SearchResult>> GetSearchResults(string query)
         {
             string searchSystemsJson = ConfigurationManager.AppSettings["SearchSystems"];
             List<SearchEngineSettings> searchSystems = JsonConvert.DeserializeObject<List<SearchEngineSettings>>(searchSystemsJson);
@@ -40,16 +40,16 @@ namespace SearcherApplication.BLL.Services
                     }
                 });
 
-            SearchEngineSettings googleSearchSystem = searchSystems.Where(s => s.Name == "Google").FirstOrDefault();
-            SearchEngineSettings bingSearchSystem = searchSystems.Where(s => s.Name == "Bing").FirstOrDefault();
-            SearchEngineSettings yahooSearchSystem = searchSystems.Where(s => s.Name == "Yahoo").FirstOrDefault();
+            SearchEngineSettings googleSearchSystem = searchSystems.Where(s => s.Name == "Google").First();
+            SearchEngineSettings bingSearchSystem = searchSystems.Where(s => s.Name == "Bing").First();
+            SearchEngineSettings yahooSearchSystem = searchSystems.Where(s => s.Name == "Yahoo").First();
 
             ISearcher googleSearcher = new GoogleSearcher(googleSearchSystem.ApiKey, googleSearchSystem.SearchEngineId);
             ISearcher bingSearcher = new BingSearcher(bingSearchSystem.ApiKey);
             ISearcher yahooSearcher = new YahooSearcher(yahooSearchSystem.ApiKey);
 
-            registerTask(googleSearchEnabled, googleSearcher);
-            registerTask(bingSearchEnabled, bingSearcher);
+            //registerTask(googleSearchEnabled, googleSearcher);
+            //registerTask(bingSearchEnabled, bingSearcher);
             registerTask(yahooSearchEnabled, yahooSearcher);
 
             var firstExecutedTask = await Task.WhenAny(searchTasks);
