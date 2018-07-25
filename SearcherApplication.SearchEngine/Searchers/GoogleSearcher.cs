@@ -6,6 +6,7 @@ using SearcherApplication.SearchEngine.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Google.Apis.Customsearch.v1.CseResource;
 
 namespace SearcherApplication.SearchEngine.Searchers
 {
@@ -26,7 +27,7 @@ namespace SearcherApplication.SearchEngine.Searchers
         public async Task<List<SearchResult>> GetSearchResults(string query)
         {
             var customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = _apiKey });
-            var listRequest = customSearchService.Cse.List(query);
+            ListRequest listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = _searchEngineId;
             listRequest.Start = _numberOfPage;
             return await Task.Run(() => { return Map(listRequest.Execute()); });
