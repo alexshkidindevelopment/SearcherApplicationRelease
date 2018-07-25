@@ -31,5 +31,11 @@ namespace SearcherApplication.Web.Controllers
             //}
             return View(results);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetSearchHistory(string query)
+        {
+            return View();
+        }
     }
 }

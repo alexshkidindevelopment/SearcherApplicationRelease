@@ -3,6 +3,7 @@ using Owin;
 using System.Web.Mvc;
 using SearcherApplication.Web.App_Start;
 using System.Web.Routing;
+using System.Web.Optimization;
 
 [assembly: OwinStartup(typeof(SearcherApplication.Web.SearcherStartup))]
 
@@ -16,6 +17,8 @@ namespace SearcherApplication.Web
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
     }
 }

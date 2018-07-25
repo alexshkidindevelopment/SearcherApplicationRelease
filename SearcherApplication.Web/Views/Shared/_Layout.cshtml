@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @Styles.Render("~/Content/css")
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="header">
+        @Html.ActionLink("Search", "Index", "Search")
+        @Html.ActionLink("Show History", "GetSearchHistory", "Search")
+    </div> 
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

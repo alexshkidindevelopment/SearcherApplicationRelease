@@ -22,8 +22,6 @@ namespace SearcherApplication.DAL.Repositories
                 QueryText = query
             };
 
-            var queries = _context.SearchQueries.ToList();
-
             _context.SearchQueries.Add(searchQuery);
             _context.SaveChanges();
             results = results.Select(c => { c.SearchQueryId = searchQuery.Id; return c; }).ToList();
