@@ -6,7 +6,7 @@
 @using (Html.BeginForm("GetSearchResults", "Search", FormMethod.Post, new { @class = "form-wrapper" }))
 {
     <div>
-        <input type="text" id="search" placeholder="Search for..." required>
+        <input type="text" id="search" placeholder="Search for..." required name="query">
         <input type="submit" value="find" id="submit">
     </div>
 }

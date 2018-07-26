@@ -23,8 +23,7 @@ namespace SearcherApplication.DAL.Repositories
             };
 
             _context.SearchQueries.Add(searchQuery);
-            _context.SaveChanges();
-            results = results.Select(c => { c.SearchQueryId = searchQuery.Id; return c; }).ToList();
+            results = results.Select(c => { c.SearchQuery = searchQuery; return c; }).ToList();
             _context.SearchedResults.AddRange(results);
             _context.SaveChanges();
         }

@@ -11,7 +11,7 @@ namespace SearcherApplication.Models.DataModels
     {
         public SearchQuery()
         {
-            SearchedResults = new List<SearchResult>();
+            SearchResults = new List<SearchResult>();
         }
 
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace SearcherApplication.Models.DataModels
         [Required]
         public string QueryText { get; set; }
 
-        public virtual ICollection<SearchResult> SearchedResults { get; set; }
+        public virtual ICollection<SearchResult> SearchResults { get; set; }
     }
 }
