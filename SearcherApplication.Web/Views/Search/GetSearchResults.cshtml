@@ -1,3 +1,54 @@
-﻿@{
+﻿@model IEnumerable<SearcherApplication.Models.DataModels.SearchResult>
+
+@{
+    ViewBag.Title = "Search Results";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>@ViewBag.SearchMessage</h2>
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Link)
+            </th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+<div class="divTable">
+    <div class="headRow">
+        <div class="divCell">
+            <strong>@Html.DisplayNameFor(model => model.Title)</strong>
+        </div>
+        <div class="divCell">
+            <strong>@Html.DisplayNameFor(model => model.Link)</strong>
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="divRow">
+            <div class="divCell">
+                @Html.DisplayFor(modelItem => item.Title)
+            </div>
+            <div class="divCell">
+                <a href="@item.Link">@Html.DisplayFor(modelItem => item.Link)</a>
+            </div>
+        </div>
+    }
+</div>
+

@@ -22,6 +22,7 @@ namespace SearcherApplication.BLL.Services
 
         public async Task<List<SearchResult>> GetSearchResults(string query)
         {
+            //TODO: Simplify this method later
             string searchSystemsJson = ConfigurationManager.AppSettings["SearchSystems"];
             List<SearchEngineSettings> searchSystems = JsonConvert.DeserializeObject<List<SearchEngineSettings>>(searchSystemsJson);
 

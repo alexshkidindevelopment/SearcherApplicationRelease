@@ -25,10 +25,12 @@ namespace SearcherApplication.Web.Controllers
         public async Task<ActionResult> GetSearchResults(string query)
         {
             List<SearchResult> results = await _searchService.GetSearchResults(query);
-            //if (results == null)
-            //{
-            //    return View();
-            //}
+            if (results == null)
+            {
+                ViewBag.SearchErrorMessage = $"Search by query \"{query}\" yielded no results";
+                return View("EmptySearch");
+            }
+            ViewBag.SearchMessage = $"On request \"{query}\" the following results were obtained:";
             return View(results);
         }
 
