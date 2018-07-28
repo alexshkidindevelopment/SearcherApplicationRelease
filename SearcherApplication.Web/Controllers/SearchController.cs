@@ -24,7 +24,7 @@ namespace SearcherApplication.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> GetSearchResults(string query)
         {
-            List<SearchResult> results = await _searchService.GetSearchResults(query);
+            List<SearchResult> results = await _searchService.GetSearchResultsAsync(query);
             if (results == null)
             {
                 ViewBag.SearchErrorMessage = $"Search by query \"{query}\" yielded no results";

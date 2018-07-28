@@ -6,6 +6,6 @@ namespace SearcherApplication.SearchEngine.Interfaces
 {
     public interface ISearcher
     {
-        Task<List<SearchResult>> GetSearchResults(string query);
+        Task<List<SearchResult>> GetSearchResultsAsync(string query);
     }
 }

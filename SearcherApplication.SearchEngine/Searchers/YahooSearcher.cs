@@ -15,7 +15,7 @@ namespace SearcherApplication.SearchEngine.Searchers
             _apiKey = apiKey;
         }
 
-        public Task<List<SearchResult>> GetSearchResults(string query)
+        public Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
             throw new NotImplementedException();
         }

@@ -4,6 +4,7 @@ using Autofac.Integration.Mvc;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Linq;
+using SearcherApplication.SearchEngine.SearcherFactory;
 
 namespace SearcherApplication.Web.App_Start
 {
@@ -19,14 +20,21 @@ namespace SearcherApplication.Web.App_Start
                 .ToArray();
 
             builder.RegisterControllers(assemblies).InstancePerRequest();
+
             builder.RegisterAssemblyTypes(assemblies)
                .Where(t => t.Name.EndsWith("Repository"))
                .AsImplementedInterfaces()
                .InstancePerRequest();
+
             builder.RegisterAssemblyTypes(assemblies)
                    .Where(t => t.Name.EndsWith("Service"))
                    .AsImplementedInterfaces()
                    .InstancePerRequest();
+
+            //TODO: Need to fix TOMORROW
+            //builder.RegisterAssemblyTypes(assemblies)
+            //    .Where(t => t.IsSubclassOf(typeof(AbstractSearcherFactory)))
+            //     .As<AbstractSearcherFactory>();
 
             var container = builder.Build();
             return new AutofacDependencyResolver(container);

@@ -24,7 +24,7 @@ namespace SearcherApplication.SearchEngine.Searchers
             _searchEngineId = searchEngineId;
         }
 
-        public async Task<List<SearchResult>> GetSearchResults(string query)
+        public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
             ListRequest listRequest = CreateListRequest(query);
             return await Task.Run(() => { return Map(listRequest.Execute()); });

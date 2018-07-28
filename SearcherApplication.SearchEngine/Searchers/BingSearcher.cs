@@ -20,7 +20,7 @@ namespace SearcherApplication.SearchEngine.Searchers
             _apiKey = apiKey;
         }
 
-        public async Task<List<SearchResult>> GetSearchResults(string query)
+        public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
             WebRequest wbReq = CreateRequest(query);
 
