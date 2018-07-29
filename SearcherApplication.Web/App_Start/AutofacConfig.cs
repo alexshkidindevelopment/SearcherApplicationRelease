@@ -31,10 +31,8 @@ namespace SearcherApplication.Web.App_Start
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
-            //TODO: Need to fix TOMORROW
-            builder.RegisterAssemblyTypes(assemblies)
-                .Where(t => t.Name.EndsWith("SearcherFactory"))
-                 .As<AbstractSearcherFactory>()
+            builder.RegisterType<SearcherFactory>()
+                .As<AbstractSearcherFactory>()
                 .InstancePerRequest();
 
             var container = builder.Build();
