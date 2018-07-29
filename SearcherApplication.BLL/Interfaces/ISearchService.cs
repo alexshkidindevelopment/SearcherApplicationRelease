@@ -7,5 +7,9 @@ namespace SearcherApplication.BLL.Interfaces
     public interface ISearchService
     {
         Task<List<SearchResult>> GetSearchResultsAsync(string query);
+
+        List<SearchQuery> GetSearchQueries();
+
+        List<SearchResult> GetSearchResultsByQuery(int searchQueryId);
     }
 }

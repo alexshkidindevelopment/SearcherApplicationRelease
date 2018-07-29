@@ -14,7 +14,7 @@ namespace SearcherApplication.DAL.Infrastructure
             : base("SearchHistoryStorage")
         { }
 
-        public DbSet<SearchResult> SearchedResults { get; set; }
+        public DbSet<SearchResult> SearchResults { get; set; }
 
         public DbSet<SearchQuery> SearchQueries { get; set; }
     }

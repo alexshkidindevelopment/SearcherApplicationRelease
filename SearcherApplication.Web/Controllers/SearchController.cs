@@ -27,7 +27,7 @@ namespace SearcherApplication.Web.Controllers
             List<SearchResult> results = await _searchService.GetSearchResultsAsync(query);
             if (results == null)
             {
-                ViewBag.SearchErrorMessage = $"Search by query \"{query}\" yielded no results";
+                ViewBag.SearchErrorMessage = $"Search by query \"{query}\" yielded no results.";
                 return View("EmptySearch");
             }
             ViewBag.SearchMessage = $"On request \"{query}\" the following results were obtained:";
@@ -35,9 +35,35 @@ namespace SearcherApplication.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetSearchHistory(string query)
+        public ActionResult GetSearchHistory(string query)
         {
-            return View();
+            List<SearchQuery> results = _searchService.GetSearchQueries();
+            if (results.Count == 0)
+            {
+                ViewBag.SearchErrorMessage = "There are no search queries in the system.";
+                return View("EmptySearch");
+            }
+
+            return View(results);
+        }
+
+        [HttpGet]
+        public ActionResult ViewQueryResults(int? id)
+        {
+            if (!id.HasValue)
+            {
+                ViewBag.SearchErrorMessage = "Incorrect id of the query.";
+                return View("EmptySearch");
+            }
+
+            List<SearchResult> results = _searchService.GetSearchResultsByQuery(id.Value);
+            if (results.Count == 0)
+            {
+                ViewBag.SearchErrorMessage = "There are no results found for this query.";
+                return View("EmptySearch");
+            }
+
+            return View("GetSearchResults", results);
         }
     }
 }

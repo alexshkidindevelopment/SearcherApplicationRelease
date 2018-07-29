@@ -1,3 +1,27 @@
-﻿@{
+﻿@model IEnumerable<SearcherApplication.Models.DataModels.SearchQuery>
+
+@{
+    ViewBag.Title = "Search History";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Search History</h2>
+
+<div class="divTable">
+    <div class="headRow">
+        <div class="divCell">
+            <strong>@Html.DisplayNameFor(model => model.QueryText)</strong>
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="divRow">
+            <div class="divCell">
+                @Html.DisplayFor(modelItem => item.QueryText)
+            </div>
+            <div class="divCell">
+                @Html.ActionLink("View Query Results", "ViewQueryResults", new { id = item.Id })
+            </div>
+        </div>
+    }
+</div>

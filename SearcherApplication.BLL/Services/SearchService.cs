@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using SearcherApplication.BLL.Interfaces;
+﻿using SearcherApplication.BLL.Interfaces;
 using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
 using SearcherApplication.SearchEngine.SearcherFactory;
-using SearcherApplication.SearchEngine.Searchers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -53,14 +51,22 @@ namespace SearcherApplication.BLL.Services
             var firstExecutedTask = await Task.WhenAny(searchTasks);
             List<SearchResult> searchResults = await firstExecutedTask;
 
-            if(searchResults == null)
+            if(searchResults != null)
             {
-                return null;
+                _searchRepository.AddSearchResults(searchResults, query);
             }
-
-            _searchRepository.AddSearchResults(searchResults, query);
-
+            
             return searchResults;
+        }
+
+        public List<SearchQuery> GetSearchQueries()
+        {
+            return _searchRepository.GetSearchQueries();
+        }
+
+        public List<SearchResult> GetSearchResultsByQuery(int searchQueryId)
+        {
+            return _searchRepository.GetSearchResultsByQuery(searchQueryId);
         }
     }
 }
