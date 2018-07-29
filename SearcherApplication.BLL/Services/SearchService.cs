@@ -16,12 +16,17 @@ namespace SearcherApplication.BLL.Services
     {
         private readonly ISearchRepository _searchRepository;
 
-        private readonly AbstractSearcherFactory _abstractSearcherFactory;
+        private readonly AbstractSearcherFactory _googleSearcherFactory;
 
-        public SearchService(ISearchRepository searchRepository, AbstractSearcherFactory abstractSearcherFactory)
+        private readonly AbstractSearcherFactory _bingSearcherFactory;
+
+        public SearchService(ISearchRepository searchRepository, 
+            GoogleSearcherFactory googleSearcherFactory,
+            BingSearcherFactory bingSearcherFactory)
         {
             _searchRepository = searchRepository;
-            _abstractSearcherFactory = abstractSearcherFactory;
+            _googleSearcherFactory = googleSearcherFactory;
+            _bingSearcherFactory = bingSearcherFactory;
         }
 
         public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
@@ -41,13 +46,12 @@ namespace SearcherApplication.BLL.Services
                     }
                 });
 
-
-            //ISearcher googleSearcher = new GoogleSearcher(googleSearchSystem.ApiKey, googleSearchSystem.SearchEngineId);
-            //ISearcher bingSearcher = new BingSearcher(bingSearchSystem.ApiKey);
+            ISearcher googleSearcher = _googleSearcherFactory.CreateSearcher();
+            ISearcher bingSearcher = _bingSearcherFactory.CreateSearcher();
             //ISearcher yahooSearcher = new YahooSearcher(yahooSearchSystem.ApiKey);
 
-            //registerTask(googleSearchEnabled, googleSearcher);
-            //registerTask(bingSearchEnabled, bingSearcher);
+            registerTask(googleSearchEnabled, googleSearcher);
+            registerTask(bingSearchEnabled, bingSearcher);
             //registerTask(yahooSearchEnabled, yahooSearcher);
 
             var firstExecutedTask = await Task.WhenAny(searchTasks);

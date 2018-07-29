@@ -27,14 +27,15 @@ namespace SearcherApplication.Web.App_Start
                .InstancePerRequest();
 
             builder.RegisterAssemblyTypes(assemblies)
-                   .Where(t => t.Name.EndsWith("Service"))
-                   .AsImplementedInterfaces()
-                   .InstancePerRequest();
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces()
+                .InstancePerRequest();
 
             //TODO: Need to fix TOMORROW
-            //builder.RegisterAssemblyTypes(assemblies)
-            //    .Where(t => t.IsSubclassOf(typeof(AbstractSearcherFactory)))
-            //     .As<AbstractSearcherFactory>();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.IsSubclassOf(typeof(AbstractSearcherFactory)))
+                 .AsSelf()
+                .InstancePerRequest();
 
             var container = builder.Build();
             return new AutofacDependencyResolver(container);
