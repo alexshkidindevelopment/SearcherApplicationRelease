@@ -33,8 +33,8 @@ namespace SearcherApplication.Web.App_Start
 
             //TODO: Need to fix TOMORROW
             builder.RegisterAssemblyTypes(assemblies)
-                .Where(t => t.IsSubclassOf(typeof(AbstractSearcherFactory)))
-                 .AsSelf()
+                .Where(t => t.Name.EndsWith("SearcherFactory"))
+                 .As<AbstractSearcherFactory>()
                 .InstancePerRequest();
 
             var container = builder.Build();

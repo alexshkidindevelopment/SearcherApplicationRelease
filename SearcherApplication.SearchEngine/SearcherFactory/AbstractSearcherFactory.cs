@@ -26,6 +26,8 @@ namespace SearcherApplication.SearchEngine.SearcherFactory
             //yahooSearchSystem = searchSystems.Where(s => s.Name == "Yahoo").First();
         }
 
-        public abstract ISearcher CreateSearcher();
+        public abstract ISearcher CreateBingSearcher();
+
+        public abstract ISearcher CreateGoogleSearcher();
     }
 }

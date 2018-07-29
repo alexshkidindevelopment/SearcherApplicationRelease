@@ -64,8 +64,7 @@
     <Compile Include="Interfaces\ISearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearcherFactory\AbstractSearcherFactory.cs" />
-    <Compile Include="SearcherFactory\BingSearcherFactory.cs" />
-    <Compile Include="SearcherFactory\GoogleSearcherFactory.cs" />
+    <Compile Include="SearcherFactory\SearcherFactory.cs" />
     <Compile Include="Searchers\BingSearcher.cs" />
     <Compile Include="Searchers\GoogleSearcher.cs" />
     <Compile Include="Searchers\YahooSearcher.cs" />

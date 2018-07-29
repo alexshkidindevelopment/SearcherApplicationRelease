@@ -3,11 +3,16 @@ using SearcherApplication.SearchEngine.Searchers;
 
 namespace SearcherApplication.SearchEngine.SearcherFactory
 {
-    public class GoogleSearcherFactory : AbstractSearcherFactory
+    public class SearcherFactory : AbstractSearcherFactory
     {
-        public override ISearcher CreateSearcher()
+        public override ISearcher CreateGoogleSearcher()
         {
             return new GoogleSearcher(googleSearchSystem.ApiKey, googleSearchSystem.SearchEngineId);
+        }
+
+        public override ISearcher CreateBingSearcher()
+        {
+            return new BingSearcher(bingSearchSystem.ApiKey);
         }
     }
 }
