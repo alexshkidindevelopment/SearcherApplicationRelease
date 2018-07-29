@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,7 +68,6 @@
     <Compile Include="SearcherFactory\SearcherFactory.cs" />
     <Compile Include="Searchers\BingSearcher.cs" />
     <Compile Include="Searchers\GoogleSearcher.cs" />
-    <Compile Include="Searchers\YahooSearcher.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -77,6 +77,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Configs\SearchEnginesConfigDev.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

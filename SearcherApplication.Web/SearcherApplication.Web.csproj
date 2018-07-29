@@ -55,10 +55,6 @@
       <HintPath>..\packages\Autofac.Mvc5.4.0.1\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.Mvc5.Owin.4.0.1\lib\net45\Autofac.Integration.Mvc.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Autofac.Integration.Owin, Version=4.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Owin.4.2.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
       <Private>True</Private>
@@ -212,10 +208,6 @@
     <ProjectReference Include="..\SearcherApplication.Models\SearcherApplication.Models.csproj">
       <Project>{4B5515D5-C178-48B7-8E0C-702C432EA8FF}</Project>
       <Name>SearcherApplication.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SearcherApplication.SearchEngine\SearcherApplication.SearchEngine.csproj">
-      <Project>{AE1A6B14-A252-4100-A7BF-B2E514267D21}</Project>
-      <Name>SearcherApplication.SearchEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

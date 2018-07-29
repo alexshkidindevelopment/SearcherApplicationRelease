@@ -24,19 +24,20 @@ namespace SearcherApplication.DAL.Repositories
             };
 
             _context.SearchQueries.Add(searchQuery);
-            results = results.Select(c => { c.SearchQuery = searchQuery; return c; }).ToList();
+            results.ForEach(c => c.SearchQuery = searchQuery);
             _context.SearchResults.AddRange(results);
             _context.SaveChanges();
         }
 
-        public List<SearchQuery> GetSearchQueries()
+        public IEnumerable<SearchQuery> GetAllSearchQueries()
         {
             return _context.SearchQueries.ToList();
         }
 
-        public List<SearchResult> GetSearchResultsByQuery(int searchQueryId)
+        public IEnumerable<SearchResult> GetSearchResultsByQueryId(int searchQueryId)
         {
             var searchResults = _context.SearchResults.Where(r => r.SearchQueryId == searchQueryId).ToList();
+
             return searchResults;
         }
     }

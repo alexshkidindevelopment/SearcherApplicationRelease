@@ -16,14 +16,14 @@
             <strong>@Html.DisplayNameFor(model => model.Link)</strong>
         </div>
     </div>
-    @foreach (var item in Model)
+    @foreach (var searchResult in Model)
     {
         <div class="divRow">
             <div class="divCell">
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => searchResult.Title)
             </div>
             <div class="divCell">
-                <a href="@item.Link">@Html.DisplayFor(modelItem => item.Link)</a>
+                <a href="@searchResult.Link">@Html.DisplayFor(modelItem => searchResult.Link)</a>
             </div>
         </div>
     }

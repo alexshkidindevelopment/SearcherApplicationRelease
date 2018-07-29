@@ -6,6 +6,7 @@ using SearcherApplication.SearchEngine.SearcherFactory;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SearcherApplication.BLL.Services
@@ -25,16 +26,15 @@ namespace SearcherApplication.BLL.Services
 
         public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
-            var googleSearchEnabled = true;//bool.Parse(ConfigurationManager.AppSettings["sdsd"]); web config <appsettings> TODO LATER
-            var bingSearchEnabled = true;
-            //var yahooSearchEnabled = true;
+            var googleSearchEnabled = bool.Parse(ConfigurationManager.AppSettings["GoogleSearchEnabled"]);
+            var bingSearchEnabled = bool.Parse(ConfigurationManager.AppSettings["BingSearchEnabled"]);
 
             var searchTasks = new List<Task<List<SearchResult>>>();
 
             var registerTask = new Action<bool, ISearcher>(
                 (flag, searcher) =>
                 {
-                    if (flag)
+                    if (flag && searcher != null)
                     {
                         searchTasks.Add(searcher.GetSearchResultsAsync(query));
                     }
@@ -42,16 +42,14 @@ namespace SearcherApplication.BLL.Services
 
             ISearcher googleSearcher = _searcherFactory.CreateGoogleSearcher();
             ISearcher bingSearcher = _searcherFactory.CreateBingSearcher();
-            //ISearcher yahooSearcher = new YahooSearcher(yahooSearchSystem.ApiKey);
 
             registerTask(googleSearchEnabled, googleSearcher);
             registerTask(bingSearchEnabled, bingSearcher);
-            //registerTask(yahooSearchEnabled, yahooSearcher);
 
-            var firstExecutedTask = await Task.WhenAny(searchTasks);
+            Task<List<SearchResult>> firstExecutedTask = await Task.WhenAny(searchTasks);
             List<SearchResult> searchResults = await firstExecutedTask;
 
-            if(searchResults != null)
+            if(searchResults?.Count() != 0)
             {
                 _searchRepository.AddSearchResults(searchResults, query);
             }
@@ -59,14 +57,14 @@ namespace SearcherApplication.BLL.Services
             return searchResults;
         }
 
-        public List<SearchQuery> GetSearchQueries()
+        public IEnumerable<SearchQuery> GetAllSearchQueries()
         {
-            return _searchRepository.GetSearchQueries();
+            return _searchRepository.GetAllSearchQueries();
         }
 
-        public List<SearchResult> GetSearchResultsByQuery(int searchQueryId)
+        public IEnumerable<SearchResult> GetSearchResultsByQueryId(int searchQueryId)
         {
-            return _searchRepository.GetSearchResultsByQuery(searchQueryId);
+            return _searchRepository.GetSearchResultsByQueryId(searchQueryId);
         }
     }
 }

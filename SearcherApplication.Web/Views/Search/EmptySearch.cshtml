@@ -1,5 +1,10 @@
-﻿@{
+﻿@model SearcherApplication.Models.ViewModels.EmptySearchViewModel
+
+@{
+    ViewBag.Title = "EmptySearch";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.SearchErrorMessage</h2>
+<div>
+    <h2>Error Message: @Model.ErrorMessage</h2>
+</div>

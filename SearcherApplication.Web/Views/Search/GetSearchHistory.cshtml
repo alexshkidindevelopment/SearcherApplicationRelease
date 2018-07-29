@@ -13,14 +13,14 @@
             <strong>@Html.DisplayNameFor(model => model.QueryText)</strong>
         </div>
     </div>
-    @foreach (var item in Model)
+    @foreach (var searchQuery in Model)
     {
         <div class="divRow">
             <div class="divCell">
-                @Html.DisplayFor(modelItem => item.QueryText)
+                @Html.DisplayFor(modelItem => searchQuery.QueryText)
             </div>
             <div class="divCell">
-                @Html.ActionLink("View Query Results", "ViewQueryResults", new { id = item.Id })
+                @Html.ActionLink("View Query Results", "ViewQueryResults", new { id = searchQuery.Id })
             </div>
         </div>
     }

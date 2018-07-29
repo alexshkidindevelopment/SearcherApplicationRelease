@@ -8,8 +8,8 @@ namespace SearcherApplication.BLL.Interfaces
     {
         Task<List<SearchResult>> GetSearchResultsAsync(string query);
 
-        List<SearchQuery> GetSearchQueries();
+        IEnumerable<SearchQuery> GetAllSearchQueries();
 
-        List<SearchResult> GetSearchResultsByQuery(int searchQueryId);
+        IEnumerable<SearchResult> GetSearchResultsByQueryId(int searchQueryId);
     }
 }

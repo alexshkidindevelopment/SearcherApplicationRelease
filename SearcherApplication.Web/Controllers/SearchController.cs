@@ -1,6 +1,8 @@
 ﻿using SearcherApplication.BLL.Interfaces;
 using SearcherApplication.Models.DataModels;
+using SearcherApplication.Models.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -25,11 +27,11 @@ namespace SearcherApplication.Web.Controllers
         public async Task<ActionResult> GetSearchResults(string query)
         {
             List<SearchResult> results = await _searchService.GetSearchResultsAsync(query);
-            if (results == null)
+            if (results?.Count == null)
             {
-                ViewBag.SearchErrorMessage = $"Search by query \"{query}\" yielded no results.";
-                return View("EmptySearch");
+                return View("EmptySearch", new EmptySearchViewModel($"Search by query \"{query}\" yielded no results."));
             }
+            //TODO: Create view model for this case
             ViewBag.SearchMessage = $"On request \"{query}\" the following results were obtained:";
             return View(results);
         }
@@ -37,11 +39,10 @@ namespace SearcherApplication.Web.Controllers
         [HttpGet]
         public ActionResult GetSearchHistory(string query)
         {
-            List<SearchQuery> results = _searchService.GetSearchQueries();
-            if (results.Count == 0)
+            IEnumerable<SearchQuery> results = _searchService.GetAllSearchQueries();
+            if (results?.Count() == 0)
             {
-                ViewBag.SearchErrorMessage = "There are no search queries in the system.";
-                return View("EmptySearch");
+                return View("EmptySearch", new EmptySearchViewModel("There are no search queries in the system."));
             }
 
             return View(results);
@@ -52,15 +53,13 @@ namespace SearcherApplication.Web.Controllers
         {
             if (!id.HasValue)
             {
-                ViewBag.SearchErrorMessage = "Incorrect id of the query.";
-                return View("EmptySearch");
+                return View("EmptySearch", new EmptySearchViewModel("Incorrect id of the query."));
             }
 
-            List<SearchResult> results = _searchService.GetSearchResultsByQuery(id.Value);
-            if (results.Count == 0)
+            IEnumerable<SearchResult> results = _searchService.GetSearchResultsByQueryId(id.Value);
+            if (results?.Count() == 0)
             {
-                ViewBag.SearchErrorMessage = "There are no results found for this query.";
-                return View("EmptySearch");
+                return View("EmptySearch", new EmptySearchViewModel("There are no results found for this query."));
             }
 
             return View("GetSearchResults", results);

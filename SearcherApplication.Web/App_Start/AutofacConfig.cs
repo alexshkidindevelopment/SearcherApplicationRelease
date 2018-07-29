@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Linq;
-using SearcherApplication.SearchEngine.SearcherFactory;
 
 namespace SearcherApplication.Web.App_Start
 {
@@ -31,11 +30,10 @@ namespace SearcherApplication.Web.App_Start
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
-            builder.RegisterType<SearcherFactory>()
-                .As<AbstractSearcherFactory>()
-                .InstancePerRequest();
+            builder.RegisterAssemblyModules(assemblies);
 
             var container = builder.Build();
+
             return new AutofacDependencyResolver(container);
         }
     }

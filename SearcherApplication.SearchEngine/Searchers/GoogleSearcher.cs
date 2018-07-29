@@ -27,6 +27,7 @@ namespace SearcherApplication.SearchEngine.Searchers
         public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
             ListRequest listRequest = CreateListRequest(query);
+
             return await Task.Run(() => { return Map(listRequest.Execute()); });
         }
 
@@ -57,6 +58,7 @@ namespace SearcherApplication.SearchEngine.Searchers
             ListRequest listRequest = customSearchService.Cse.List(query);
             listRequest.Cx = _searchEngineId;
             listRequest.Start = _numberOfPage;
+
             return listRequest;
         }
     }

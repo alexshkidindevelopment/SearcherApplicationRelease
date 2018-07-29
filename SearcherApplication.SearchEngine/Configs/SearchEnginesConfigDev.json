@@ -1,0 +1,11 @@
+﻿[
+  {
+    "Name": "Google",
+    "ApiKey": "AIzaSyCO4kYnDH22vhXPw4VQBjxczUT7hp1egAo",
+    "SearchEngineId": "005622240092378482429:d5rlwol90fg"
+  },
+  {
+    "Name": "Bing",
+    "ApiKey": "a21e4c95836141d7b75f311c6ba9fe21"
+  }
+]

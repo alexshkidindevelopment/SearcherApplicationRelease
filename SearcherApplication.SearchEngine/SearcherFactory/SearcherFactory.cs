@@ -7,12 +7,12 @@ namespace SearcherApplication.SearchEngine.SearcherFactory
     {
         public override ISearcher CreateGoogleSearcher()
         {
-            return new GoogleSearcher(googleSearchSystem.ApiKey, googleSearchSystem.SearchEngineId);
+            return new GoogleSearcher(GoogleSearchSystem.ApiKey, GoogleSearchSystem.SearchEngineId);
         }
 
         public override ISearcher CreateBingSearcher()
         {
-            return new BingSearcher(bingSearchSystem.ApiKey);
+            return new BingSearcher(BingSearchSystem.ApiKey);
         }
     }
 }

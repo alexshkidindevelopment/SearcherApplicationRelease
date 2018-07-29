@@ -1,29 +1,39 @@
 ﻿using Newtonsoft.Json;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Web.Hosting;
 
 namespace SearcherApplication.SearchEngine.SearcherFactory
 {
     public abstract class AbstractSearcherFactory
     {
-        protected static readonly SearchEngineSettings bingSearchSystem;
+        protected static SearchEngineSettings BingSearchSystem { get; }
 
-        protected static readonly SearchEngineSettings googleSearchSystem;
-
-        //protected static readonly SearchEngineSettings yahooSearchSystem;
+        protected static SearchEngineSettings GoogleSearchSystem { get; }
 
         static AbstractSearcherFactory()
         {
-            string searchSystemsJson = ConfigurationManager.AppSettings["SearchSystems"];
+            string projectDirectory = Directory.GetParent(HostingEnvironment.ApplicationPhysicalPath).Parent.FullName;
+            string configPath = $"{projectDirectory}/SearcherApplication.SearchEngine/Configs/SearchEnginesConfigDev.json";
             List<SearchEngineSettings> searchSystems = 
-                JsonConvert.DeserializeObject<List<SearchEngineSettings>>(searchSystemsJson);
+                JsonConvert.DeserializeObject<List<SearchEngineSettings>>(File.ReadAllText(configPath));
 
-            googleSearchSystem = searchSystems.Where(s => s.Name == "Google").First();
-            bingSearchSystem = searchSystems.Where(s => s.Name == "Bing").First();
-            //yahooSearchSystem = searchSystems.Where(s => s.Name == "Yahoo").First();
+            if (searchSystems == null)
+            {
+                throw new Exception("There are no search systems in the JSON");
+            }
+
+            GoogleSearchSystem = searchSystems.Where(s => s.Name == "Google").FirstOrDefault();
+            BingSearchSystem = searchSystems.Where(s => s.Name == "Bing").FirstOrDefault();
+
+            if (GoogleSearchSystem == null && BingSearchSystem == null)
+            {
+                throw new Exception("There are no needed search systems in the config");
+            }
         }
 
         public abstract ISearcher CreateBingSearcher();

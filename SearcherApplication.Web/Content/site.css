@@ -12,8 +12,6 @@ a {
 .divTable {
     display: table;
     width: 100%;
-    /*background-color: #eee;
-    border: 1px solid #666666;*/
     border-spacing: 1px;
 }
 
@@ -37,30 +35,11 @@ div.divRow:nth-child(even){
 
 .divCell {
     float: left;
-    display: table-column;
     width: 48%;
     padding-bottom: 4px;
     padding-top: 4px;
     text-align: left;
-    /*background-color: #ccc;*/
 }
-/*table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-
-
-th {
-
-}*/
-
-
 
 .header {
     overflow: hidden;
