@@ -33,6 +33,7 @@ namespace SearcherApplication.Web.Controllers
             }
             //TODO: Create view model for this case
             ViewBag.SearchMessage = $"On request \"{query}\" the following results were obtained:";
+
             return View(results);
         }
 
