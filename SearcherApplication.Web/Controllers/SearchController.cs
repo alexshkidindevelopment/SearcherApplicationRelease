@@ -27,14 +27,15 @@ namespace SearcherApplication.Web.Controllers
         public async Task<ActionResult> GetSearchResults(string query)
         {
             List<SearchResult> results = await _searchService.GetSearchResultsAsync(query);
-            if (results?.Count == null)
+            if (results?.Count == 0)
             {
                 return View("EmptySearch", new EmptySearchViewModel($"Search by query \"{query}\" yielded no results."));
             }
+
             //TODO: Create view model for this case
             ViewBag.SearchMessage = $"On request \"{query}\" the following results were obtained:";
 
-            return View(results);
+            return View("GetSearchResults", results);
         }
 
         [HttpGet]

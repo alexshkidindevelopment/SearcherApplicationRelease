@@ -7,6 +7,7 @@ namespace SearcherApplication.DAL.Infrastructure
     {
         protected override void Seed(SearchHistoryStorageContext db)
         {
+            //TODO: Add test data later
             //db.SaveChanges();
         }
     }

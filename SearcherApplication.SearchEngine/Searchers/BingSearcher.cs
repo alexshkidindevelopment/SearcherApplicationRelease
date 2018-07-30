@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SearcherApplication.SearchEngine.Searchers
@@ -25,17 +26,25 @@ namespace SearcherApplication.SearchEngine.Searchers
         {
             WebRequest wbReq = CreateRequest(query);
 
-            using (var hResp = await wbReq.GetResponseAsync() as HttpWebResponse)
+            try
             {
-                string strJSON;
-                using (var reader = new StreamReader(hResp.GetResponseStream()))
+                using (var hResp = await wbReq.GetResponseAsync() as HttpWebResponse)
                 {
-                    strJSON = reader.ReadToEnd();
+                    string strJSON;
+                    using (var reader = new StreamReader(hResp.GetResponseStream()))
+                    {
+                        strJSON = reader.ReadToEnd();
+                    }
+
+                    BingResultModel result = JsonConvert.DeserializeObject<BingResultModel>(strJSON);
+
+                    return await Task.Run(() => { return Map(result); });
                 }
-
-                BingResultModel result = JsonConvert.DeserializeObject<BingResultModel>(strJSON);
-
-                return await Task.Run(() => { return Map(result); });
+            }
+            catch (WebException ex) //That exception causes when API KEY was expired
+            {
+                await Task.Delay(10000);
+                return null;
             }
         }
 

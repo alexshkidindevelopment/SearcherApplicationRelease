@@ -30,6 +30,7 @@ namespace SearcherApplication.SearchEngine.SearcherFactory
             GoogleSearchSystem = searchSystems.Where(s => s.Name == "Google").FirstOrDefault();
             BingSearchSystem = searchSystems.Where(s => s.Name == "Bing").FirstOrDefault();
 
+            //TODO: Resolve this problem later
             if (GoogleSearchSystem == null && BingSearchSystem == null)
             {
                 throw new Exception("There are no needed search systems in the config");

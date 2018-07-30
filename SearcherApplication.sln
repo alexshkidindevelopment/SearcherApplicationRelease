@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.BLL", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.SearchEngine", "SearcherApplication.SearchEngine\SearcherApplication.SearchEngine.csproj", "{AE1A6B14-A252-4100-A7BF-B2E514267D21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.Web.Tests", "SearcherApplication.Web.Tests\SearcherApplication.Web.Tests.csproj", "{FCAE1A5C-E7A8-4960-B241-38AA06024F08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{AE1A6B14-A252-4100-A7BF-B2E514267D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE1A6B14-A252-4100-A7BF-B2E514267D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE1A6B14-A252-4100-A7BF-B2E514267D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCAE1A5C-E7A8-4960-B241-38AA06024F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCAE1A5C-E7A8-4960-B241-38AA06024F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCAE1A5C-E7A8-4960-B241-38AA06024F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCAE1A5C-E7A8-4960-B241-38AA06024F08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
