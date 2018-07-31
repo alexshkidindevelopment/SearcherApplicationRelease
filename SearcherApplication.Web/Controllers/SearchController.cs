@@ -39,7 +39,7 @@ namespace SearcherApplication.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetSearchHistory(string query)
+        public ActionResult GetSearchHistory()
         {
             IEnumerable<SearchQuery> results = _searchService.GetAllSearchQueries();
             if (results?.Count() == 0)
@@ -47,7 +47,7 @@ namespace SearcherApplication.Web.Controllers
                 return View("EmptySearch", new EmptySearchViewModel("There are no search queries in the system."));
             }
 
-            return View(results);
+            return View("GetSearchHistory", results);
         }
 
         [HttpGet]
