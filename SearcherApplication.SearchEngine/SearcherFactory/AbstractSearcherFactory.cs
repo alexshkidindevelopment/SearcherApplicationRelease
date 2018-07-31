@@ -9,7 +9,7 @@ using System.Web.Hosting;
 
 namespace SearcherApplication.SearchEngine.SearcherFactory
 {
-    public abstract class AbstractSearcherFactory
+    public abstract class AbstractSearcherFactory : ISearcherFactory
     {
         protected static SearchEngineSettings BingSearchSystem { get; }
 

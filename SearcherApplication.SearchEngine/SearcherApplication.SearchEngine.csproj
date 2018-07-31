@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ISearcher.cs" />
+    <Compile Include="Interfaces\ISearcherFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearcherFactory\AbstractSearcherFactory.cs" />
     <Compile Include="SearcherFactory\SearcherFactory.cs" />

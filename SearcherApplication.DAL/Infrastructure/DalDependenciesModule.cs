@@ -9,6 +9,7 @@ namespace SearcherApplication.DAL.Infrastructure
         {
             builder.RegisterType<SearcherFactory>()
                 .As<AbstractSearcherFactory>()
+                .AsImplementedInterfaces()
                 .InstancePerRequest();
         }
     }

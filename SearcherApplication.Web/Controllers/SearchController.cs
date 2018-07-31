@@ -26,6 +26,11 @@ namespace SearcherApplication.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> GetSearchResults(string query)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                return View("EmptySearch", new EmptySearchViewModel("Query string is empty."));
+            }
+
             List<SearchResult> results = await _searchService.GetSearchResultsAsync(query);
             if (results?.Count == 0)
             {

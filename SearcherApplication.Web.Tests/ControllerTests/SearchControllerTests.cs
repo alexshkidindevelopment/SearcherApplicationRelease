@@ -74,6 +74,20 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
+        public void SearchController_GetSearchResults_ViewIsEmptySearchWhenQueryIsEmpty()
+        {
+            //Arrange
+            var query = "";
+            var expectedResult = "EmptySearch";
+
+            //Act
+            var result = _searchController.GetSearchResults(query).Result as ViewResult;
+
+            //Assert
+            Assert.AreEqual(expectedResult, result.ViewName);
+        }
+
+        [Test]
         public void SearchController_GetSearchHistory_ReturnsActionResult()
         {
             //Act
@@ -159,6 +173,20 @@ namespace SearcherApplication.Web.Tests
         {
             //Arrange
             int? id = 4;
+            var expectedResult = "EmptySearch";
+
+            //Act
+            var result = _searchController.ViewQueryResults(id) as ViewResult;
+
+            //Assert
+            Assert.AreEqual(expectedResult, result.ViewName);
+        }
+
+        [Test]
+        public void SearchController_ViewQueryResults_ViewIsEmptySearchWhenIdIsNull()
+        {
+            //Arrange
+            int? id = null;
             var expectedResult = "EmptySearch";
 
             //Act

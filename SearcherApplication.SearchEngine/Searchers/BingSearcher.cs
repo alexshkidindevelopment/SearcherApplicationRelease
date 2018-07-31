@@ -14,7 +14,7 @@ namespace SearcherApplication.SearchEngine.Searchers
     public class BingSearcher : ISearcher
     {
         private readonly string _apiKey;
-        private readonly string _bingUrl = ConfigurationManager.AppSettings["BingApiUrl"].ToString();
+        private readonly string _bingUrl = ConfigurationManager.AppSettings["BingApiUrl"];
         private const int _countOfRecords = 10;
 
         public BingSearcher(string apiKey)

@@ -2,7 +2,6 @@
 using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
-using SearcherApplication.SearchEngine.SearcherFactory;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,10 +14,10 @@ namespace SearcherApplication.BLL.Services
     {
         private readonly ISearchRepository _searchRepository;
 
-        private readonly AbstractSearcherFactory _searcherFactory;
+        private readonly ISearcherFactory _searcherFactory;
 
         public SearchService(ISearchRepository searchRepository,
-            AbstractSearcherFactory searcherFactory)
+            ISearcherFactory searcherFactory)
         {
             _searchRepository = searchRepository;
             _searcherFactory = searcherFactory;
