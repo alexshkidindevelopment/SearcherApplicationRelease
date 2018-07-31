@@ -4,7 +4,6 @@ using Google.Apis.Services;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using static Google.Apis.Customsearch.v1.CseResource;
 

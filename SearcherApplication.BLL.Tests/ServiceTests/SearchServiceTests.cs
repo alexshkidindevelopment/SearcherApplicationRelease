@@ -1,21 +1,13 @@
 ﻿using FakeItEasy;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using SearcherApplication.BLL.Interfaces;
 using SearcherApplication.BLL.Services;
 using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
-using SearcherApplication.SearchEngine.SearcherFactory;
 using SearcherApplication.SearchEngine.Searchers;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Hosting;
 
 namespace SearcherApplication.BLL.Tests.ServiceTests
 {

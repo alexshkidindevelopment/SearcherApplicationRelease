@@ -1,7 +1,6 @@
 ﻿using SearcherApplication.DAL.Infrastructure;
 using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

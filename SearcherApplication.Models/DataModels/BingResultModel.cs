@@ -1,5 +1,6 @@
 ﻿namespace SearcherApplication.Models.DataModels
 {
+    //TODO: change this later
     public class BingResultModel
     {
         public BingWebPages webPages { get; set; }

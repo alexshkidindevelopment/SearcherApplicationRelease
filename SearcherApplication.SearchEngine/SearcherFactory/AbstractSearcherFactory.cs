@@ -19,7 +19,7 @@ namespace SearcherApplication.SearchEngine.SearcherFactory
         {
             string projectDirectory = Directory.GetParent(HostingEnvironment.ApplicationPhysicalPath).Parent.FullName;
             string configPath = $"{projectDirectory}/SearcherApplication.SearchEngine/Configs/SearchEnginesConfigDev.json";
-            List<SearchEngineSettings> searchSystems = 
+            List<SearchEngineSettings> searchSystems =
                 JsonConvert.DeserializeObject<List<SearchEngineSettings>>(File.ReadAllText(configPath));
 
             if (searchSystems == null)

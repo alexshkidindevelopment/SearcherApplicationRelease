@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SearcherApplication.SearchEngine.Searchers
