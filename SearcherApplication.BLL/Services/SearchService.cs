@@ -48,6 +48,7 @@ namespace SearcherApplication.BLL.Services
             Task<List<SearchResult>> firstExecutedTask = await Task.WhenAny(searchTasks);
             List<SearchResult> searchResults = await firstExecutedTask;
 
+            if (searchResults?.Count() != 0)
             {
                 _searchRepository.AddSearchResults(searchResults, query);
             }
