@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineModels\BingResultModel.cs" />
+    <Compile Include="EngineModels\BingSearchResult.cs" />
+    <Compile Include="EngineModels\BingWebPages.cs" />
     <Compile Include="Interfaces\ISearcher.cs" />
     <Compile Include="Interfaces\ISearcherFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

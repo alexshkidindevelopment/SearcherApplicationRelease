@@ -25,8 +25,23 @@ namespace SearcherApplication.BLL.Services
 
         public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
-            var googleSearchEnabled = bool.Parse(ConfigurationManager.AppSettings["GoogleSearchEnabled"]);
-            var bingSearchEnabled = bool.Parse(ConfigurationManager.AppSettings["BingSearchEnabled"]);
+            if (string.IsNullOrEmpty(query))
+            {
+                return null;
+            }
+
+            bool googleSearchEnabled;
+            bool bingSearchEnabled;
+
+            try
+            {
+                googleSearchEnabled = bool.Parse(ConfigurationManager.AppSettings["GoogleSearchEnabled"]);
+                bingSearchEnabled = bool.Parse(ConfigurationManager.AppSettings["BingSearchEnabled"]);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
             var searchTasks = new List<Task<List<SearchResult>>>();
 
@@ -45,7 +60,16 @@ namespace SearcherApplication.BLL.Services
             registerTask(googleSearchEnabled, googleSearcher);
             registerTask(bingSearchEnabled, bingSearcher);
 
-            Task<List<SearchResult>> firstExecutedTask = await Task.WhenAny(searchTasks);
+            Task<List<SearchResult>> firstExecutedTask;
+            try
+            {
+                firstExecutedTask = await Task.WhenAny(searchTasks);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+
             List<SearchResult> searchResults = await firstExecutedTask;
 
             if (searchResults?.Count() != 0)
@@ -63,6 +87,11 @@ namespace SearcherApplication.BLL.Services
 
         public IEnumerable<SearchResult> GetSearchResultsByQueryId(int searchQueryId)
         {
+            if (searchQueryId < 1)
+            {
+                return null;
+            }
+
             return _searchRepository.GetSearchResultsByQueryId(searchQueryId);
         }
     }

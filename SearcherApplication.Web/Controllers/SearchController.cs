@@ -58,7 +58,7 @@ namespace SearcherApplication.Web.Controllers
         [HttpGet]
         public ActionResult ViewQueryResults(int? id)
         {
-            if (!id.HasValue)
+            if (!id.HasValue || id.Value < 1)
             {
                 return View("EmptySearch", new EmptySearchViewModel("Incorrect id of the query."));
             }

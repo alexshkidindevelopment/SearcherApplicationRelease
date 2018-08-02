@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModels\BingResultModel.cs" />
     <Compile Include="DataModels\SearchQuery.cs" />
     <Compile Include="DataModels\SearchResult.cs" />
     <Compile Include="DataModels\SearchEngineSettings.cs" />

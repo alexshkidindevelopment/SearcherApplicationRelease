@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SearcherApplication.Models.DataModels;
+using SearcherApplication.SearchEngine.EngineModels;
 using SearcherApplication.SearchEngine.Interfaces;
 using System;
 using System.Collections.Generic;

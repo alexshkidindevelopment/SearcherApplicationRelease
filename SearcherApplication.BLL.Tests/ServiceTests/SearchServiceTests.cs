@@ -1,4 +1,5 @@
 ﻿using FakeItEasy;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using SearcherApplication.BLL.Interfaces;
 using SearcherApplication.BLL.Services;
@@ -6,6 +7,7 @@ using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
 using SearcherApplication.SearchEngine.Searchers;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -48,8 +50,57 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
 
             //Assert
-            Assert.IsInstanceOf<List<SearchResult>>(result);
-            Assert.AreNotSame(result.Count, notExpectedResultCount);
+            NUnit.Framework.Assert.IsInstanceOf<List<SearchResult>>(result);
+            NUnit.Framework.Assert.AreNotSame(result.Count, notExpectedResultCount);
+        }
+
+        [Test]
+        public void SearchService_GetSearchResultsAsync_ReturnsNullWhenQueryNullOrEmpty()
+        {
+            //Arrange
+            var query = "";
+
+            //Act
+            List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
+
+            //Assert
+            NUnit.Framework.Assert.IsNull(result);
+        }
+
+        [Test]
+        public void SearchService_GetSearchResultsAsync_ReturnNullWhenFlagsAreNotValid()
+        {
+            //Arrange
+            var query = "Skateboard";
+            ConfigurationManager.AppSettings["GoogleSearchEnabled"] = "null";
+
+            //Act
+            List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
+
+            //Assert
+            NUnit.Framework.Assert.IsNull(result);
+        }
+
+        [Test]
+        public void SearchService_GetSearchResultsAsync_ReturnsNullWhenListOfTasksIsEmpty()
+        {
+            //Arrange
+            var query = "Skateboard";
+            ConfigurationManager.AppSettings["GoogleSearchEnabled"] = "false";
+            ConfigurationManager.AppSettings["BingSearchEnabled"] = "false";
+            ConfigurationManager.AppSettings["BingApiUrl"] = "https://api.cognitive.microsoft.com/bing/v7.0/search";
+
+            A.CallTo(() => _searcherFactory.CreateGoogleSearcher())
+                .Returns(new GoogleSearcher("AIzaSyCO4kYnDH22vhXPw4VQBjxczUT7hp1egAo", "005622240092378482429:d5rlwol90fg"));
+
+            A.CallTo(() => _searcherFactory.CreateBingSearcher())
+                .Returns(new BingSearcher("a21e4c95836141d7b75f311c6ba9fe21"));
+
+            //Act
+            List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
+
+            //Assert
+            NUnit.Framework.Assert.IsNull(result);
         }
 
         [Test]
@@ -70,7 +121,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             IEnumerable<SearchQuery> result = _searchService.GetAllSearchQueries();
 
             //Assert
-            Assert.IsInstanceOf<IEnumerable<SearchQuery>>(result);
+            NUnit.Framework.Assert.IsInstanceOf<IEnumerable<SearchQuery>>(result);
         }
 
         [Test]
@@ -93,7 +144,20 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             IEnumerable<SearchResult> result = _searchService.GetSearchResultsByQueryId(id);
 
             //Assert
-            Assert.IsInstanceOf<IEnumerable<SearchResult>>(result);
+            NUnit.Framework.Assert.IsInstanceOf<IEnumerable<SearchResult>>(result);
+        }
+
+        [Test]
+        public void SearchService_GetSearchResultsByQueryId_ReturnsNullWhenIdIsLesserThanOne()
+        {
+            //Arrange
+            int id = -1;
+
+            //Act
+            IEnumerable<SearchResult> result = _searchService.GetSearchResultsByQueryId(id);
+
+            //Assert
+            NUnit.Framework.Assert.IsNull(result);
         }
     }
 }
