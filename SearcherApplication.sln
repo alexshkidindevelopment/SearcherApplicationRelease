@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.BLL.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.DAL.Tests", "SearcherApplication.DAL.Tests\SearcherApplication.DAL.Tests.csproj", "{69A657D8-1AC5-4596-B67D-BD8142293B53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearcherApplication.SearchEngine.Tests", "SearcherApplication.SearchEngine.Tests\SearcherApplication.SearchEngine.Tests.csproj", "{E7BBE5EA-BA5F-4BCF-B14C-972A8E2E5064}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{69A657D8-1AC5-4596-B67D-BD8142293B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69A657D8-1AC5-4596-B67D-BD8142293B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69A657D8-1AC5-4596-B67D-BD8142293B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7BBE5EA-BA5F-4BCF-B14C-972A8E2E5064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7BBE5EA-BA5F-4BCF-B14C-972A8E2E5064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7BBE5EA-BA5F-4BCF-B14C-972A8E2E5064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7BBE5EA-BA5F-4BCF-B14C-972A8E2E5064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

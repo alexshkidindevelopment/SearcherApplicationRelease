@@ -49,7 +49,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
 
             //Assert
             Assert.IsInstanceOf<List<SearchResult>>(result);
-            Assert.AreNotSame(result.Count, notExpectedResultCount);
+            Assert.AreNotEqual(result.Count, notExpectedResultCount);
         }
 
         [Test]

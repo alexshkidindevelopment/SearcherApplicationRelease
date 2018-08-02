@@ -11,6 +11,9 @@ namespace SearcherApplication.DAL.Infrastructure
                 .As<AbstractSearcherFactory>()
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
+
+            builder.RegisterType<SearchHistoryStorageContext>()
+                .InstancePerRequest();
         }
     }
 }

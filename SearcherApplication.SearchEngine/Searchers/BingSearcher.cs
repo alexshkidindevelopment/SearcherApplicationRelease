@@ -24,6 +24,11 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                return null;
+            }
+
             WebRequest wbReq = CreateRequest(query);
 
             try
@@ -50,7 +55,7 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         private List<SearchResult> Map(BingResultModel search)
         {
-            if (search.webPages == null)
+            if (search?.webPages == null)
             {
                 return null;
             }

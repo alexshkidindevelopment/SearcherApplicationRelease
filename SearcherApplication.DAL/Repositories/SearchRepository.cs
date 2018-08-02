@@ -10,9 +10,9 @@ namespace SearcherApplication.DAL.Repositories
     {
         private readonly SearchHistoryStorageContext _context;
 
-        public SearchRepository()
+        public SearchRepository(SearchHistoryStorageContext context)
         {
-            _context = new SearchHistoryStorageContext();
+            _context = context;
         }
 
         public void AddSearchResults(List<SearchResult> results, string queryText)

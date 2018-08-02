@@ -25,6 +25,11 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                return null;
+            }
+
             ListRequest listRequest = CreateListRequest(query);
 
             return await Task.Run(() => { return Map(listRequest.Execute()); });
@@ -32,7 +37,7 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         private List<SearchResult> Map(Search search)
         {
-            if (search.Items == null)
+            if (search?.Items == null)
             {
                 return null;
             }
