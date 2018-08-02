@@ -17,6 +17,11 @@ namespace SearcherApplication.DAL.Repositories
 
         public void AddSearchResults(List<SearchResult> results, string queryText)
         {
+            if (results?.Count == 0 || string.IsNullOrEmpty(queryText))
+            {
+                return;
+            }
+
             var searchQuery = new SearchQuery
             {
                 QueryText = queryText
@@ -35,6 +40,11 @@ namespace SearcherApplication.DAL.Repositories
 
         public IEnumerable<SearchResult> GetSearchResultsByQueryId(int searchQueryId)
         {
+            if (searchQueryId < 1)
+            {
+                return null;
+            }
+
             var searchResults = _context.SearchResults.Where(r => r.SearchQueryId == searchQueryId).ToList();
 
             return searchResults;

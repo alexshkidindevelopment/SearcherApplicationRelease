@@ -1,5 +1,4 @@
 ﻿using FakeItEasy;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using SearcherApplication.BLL.Interfaces;
 using SearcherApplication.BLL.Services;
@@ -7,7 +6,6 @@ using SearcherApplication.DAL.Interfaces;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
 using SearcherApplication.SearchEngine.Searchers;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -50,8 +48,8 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
 
             //Assert
-            NUnit.Framework.Assert.IsInstanceOf<List<SearchResult>>(result);
-            NUnit.Framework.Assert.AreNotSame(result.Count, notExpectedResultCount);
+            Assert.IsInstanceOf<List<SearchResult>>(result);
+            Assert.AreNotSame(result.Count, notExpectedResultCount);
         }
 
         [Test]
@@ -64,7 +62,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
 
             //Assert
-            NUnit.Framework.Assert.IsNull(result);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -78,7 +76,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
 
             //Assert
-            NUnit.Framework.Assert.IsNull(result);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -100,7 +98,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
 
             //Assert
-            NUnit.Framework.Assert.IsNull(result);
+            Assert.IsNull(result);
         }
 
         [Test]
@@ -121,7 +119,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             IEnumerable<SearchQuery> result = _searchService.GetAllSearchQueries();
 
             //Assert
-            NUnit.Framework.Assert.IsInstanceOf<IEnumerable<SearchQuery>>(result);
+            Assert.IsInstanceOf<IEnumerable<SearchQuery>>(result);
         }
 
         [Test]
@@ -144,7 +142,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             IEnumerable<SearchResult> result = _searchService.GetSearchResultsByQueryId(id);
 
             //Assert
-            NUnit.Framework.Assert.IsInstanceOf<IEnumerable<SearchResult>>(result);
+            Assert.IsInstanceOf<IEnumerable<SearchResult>>(result);
         }
 
         [Test]
@@ -157,7 +155,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             IEnumerable<SearchResult> result = _searchService.GetSearchResultsByQueryId(id);
 
             //Assert
-            NUnit.Framework.Assert.IsNull(result);
+            Assert.IsNull(result);
         }
     }
 }
