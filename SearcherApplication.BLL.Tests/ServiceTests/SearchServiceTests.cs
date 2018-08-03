@@ -28,6 +28,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
             _searchService = new SearchService(_searchRepository, _searcherFactory);
         }
 
+        //TODO: Need a reworking
         [Test]
         public void SearchService_GetSearchResultsAsync_ReturnsListOfSearchResults()
         {

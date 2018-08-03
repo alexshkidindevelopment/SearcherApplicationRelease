@@ -31,7 +31,7 @@ namespace SearcherApplication.DAL.Tests.RepositoryTests
             var listOfQueries = new List<SearchQuery>();
             listOfQueries.Add(new SearchQuery
             {
-                Id = 1111,
+                Id = 222,
                 QueryText = "Skateboard"
             });
 
@@ -59,7 +59,7 @@ namespace SearcherApplication.DAL.Tests.RepositoryTests
         public void SearchRepository_GetSearchResultsByQueryId_ReturnsListOfSearchResults()
         {
             //Arrange
-            int searchQueryId = 1111;
+            int searchQueryId = 222;
             int notExpectedCount = 0;
             
             //Act
