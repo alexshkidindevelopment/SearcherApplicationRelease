@@ -56,7 +56,7 @@ namespace SearcherApplication.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ViewQueryResults(int? id)
+        public ActionResult GetQueryResultsById(int? id)
         {
             if (!id.HasValue || id.Value < 1)
             {

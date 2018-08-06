@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace SearcherApplication.DAL.Tests.Helpers
 {
-    public static class ListFaker<T> where T : class
+    public static class DbSetMockHelper 
     {
-        public static DbSet<T> GetFake(List<T> data)
+        public static DbSet<T> GetMockDbSet<T>(IEnumerable<T> data) where T : class
         {
             var dataAsQueryable = data.AsQueryable();
             var fakeDbSet = A.Fake<DbSet<T>>(b => b.Implements(typeof(IQueryable<T>)));

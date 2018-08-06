@@ -24,7 +24,7 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchResults_ReturnsActionResult()
+        public void GetSearchResults_QueryIsValid_ReturnsActionResult()
         {
             //Arrange
             var query = "Skateboard";
@@ -37,7 +37,7 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchResults_ViewIsGetSearchResultsWhenResultsNotEmpty()
+        public void GetSearchResults_QueryIsValidAndSearchResultsExists_ViewIsGetSearchResults()
         {
             //Arrange
             var query = "Skateboard";
@@ -60,7 +60,7 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchResults_ViewIsEmptySearchWhenResultsEmpty()
+        public void GetSearchResults_QueryIsValidAndSearchResultsNotExists_ViewIsEmptySearch()
         {
             //Arrange
             var query = "Skateboard";
@@ -74,7 +74,7 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchResults_ViewIsEmptySearchWhenQueryIsEmpty()
+        public void GetSearchResults_QueryIsNullOrEmpty_ViewIsEmptySearch()
         {
             //Arrange
             var query = "";
@@ -88,7 +88,7 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchHistory_ReturnsActionResult()
+        public void GetSearchHistory_SearchQueriesExists_ReturnsActionResult()
         {
             //Act
             var result = _searchController.GetSearchHistory();
@@ -98,7 +98,7 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchHistory_ViewIsGetSearchHistoryWhenResultsNotEmpty()
+        public void GetSearchHistory_SearchQueriesExists_ViewIsGetSearchHistory()
         {
             //Arrange
             var expectedResult = "GetSearchHistory";
@@ -119,10 +119,12 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_GetSearchHistory_ViewIsEmptySearchWhenResultsEmpty()
+        public void GetSearchHistory_SearchQueriesNotExists_ViewIsEmptySearch()
         {
             //Arrange
             var expectedResult = "EmptySearch";
+            A.CallTo(() => _searchService.GetAllSearchQueries())
+                .Returns(new List<SearchQuery>());
 
             //Act
             var result = _searchController.GetSearchHistory() as ViewResult;
@@ -132,20 +134,20 @@ namespace SearcherApplication.Web.Tests
         }
 
         [Test]
-        public void SearchController_ViewQueryResults_ReturnsActionResult()
+        public void GetQueryResultsById_QueryIdIsValid_ReturnsActionResult()
         {
             //Arrange
             int? id = 4;
 
             //Act
-            var result = _searchController.ViewQueryResults(id);
+            var result = _searchController.GetQueryResultsById(id);
 
             //Assert
             Assert.IsInstanceOf<ActionResult>(result);
         }
 
         [Test]
-        public void SearchController_ViewQueryResults_ViewIsGetSearchResultsWhenResultsNotEmpty()
+        public void GetQueryResultsById_QueryIdIsValidAndSearchResultsExist_ViewIsGetSearchResults()
         {
             //Arrange
             int? id = 4;
@@ -162,35 +164,37 @@ namespace SearcherApplication.Web.Tests
                 .Returns(listOfResults);
 
             //Act
-            var result = _searchController.ViewQueryResults(id) as ViewResult;
+            var result = _searchController.GetQueryResultsById(id) as ViewResult;
 
             //Assert
             Assert.AreEqual(expectedResult, result.ViewName);
         }
 
         [Test]
-        public void SearchController_ViewQueryResults_ViewIsEmptySearchWhenResultsEmpty()
+        public void GetQueryResultsById_QueryIdIsValidAndSearchResultsNotExist_ViewIsEmptySearch()
         {
             //Arrange
             int? id = 4;
             var expectedResult = "EmptySearch";
+            A.CallTo(() => _searchService.GetSearchResultsByQueryId(id.Value))
+                .Returns(new List<SearchResult>());
 
             //Act
-            var result = _searchController.ViewQueryResults(id) as ViewResult;
+            var result = _searchController.GetQueryResultsById(id) as ViewResult;
 
             //Assert
             Assert.AreEqual(expectedResult, result.ViewName);
         }
 
         [Test]
-        public void SearchController_ViewQueryResults_ViewIsEmptySearchWhenIdIsNull()
+        public void GetQueryResultsById_QueryIdIsNotValid_ViewIsEmptySearch()
         {
             //Arrange
             int? id = null;
             var expectedResult = "EmptySearch";
 
             //Act
-            var result = _searchController.ViewQueryResults(id) as ViewResult;
+            var result = _searchController.GetQueryResultsById(id) as ViewResult;
 
             //Assert
             Assert.AreEqual(expectedResult, result.ViewName);

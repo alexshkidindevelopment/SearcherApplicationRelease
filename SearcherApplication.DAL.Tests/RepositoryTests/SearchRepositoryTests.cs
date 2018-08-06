@@ -5,7 +5,6 @@ using SearcherApplication.DAL.Repositories;
 using SearcherApplication.DAL.Tests.Helpers;
 using SearcherApplication.Models.DataModels;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace SearcherApplication.DAL.Tests.RepositoryTests
@@ -14,19 +13,21 @@ namespace SearcherApplication.DAL.Tests.RepositoryTests
     public class SearchRepositoryTests
     {
         private SearchRepository _searchRepository;
+        private SearchHistoryStorageContext _mockContext;
 
         [SetUp]
         public void Initialize()
         {
-            var contextFaker = new ContextFaker();
-            var listOfResults = new List<SearchResult>();
-            listOfResults.Add(new SearchResult
-            {
-                Id = 111,
-                Link = "www.skateboard.com",
-                Title = "Best skateboards in the world",
-                SearchQueryId = 1111
-            });
+            _mockContext = A.Fake<SearchHistoryStorageContext>();
+
+            _searchRepository = new SearchRepository(_mockContext);
+        }
+
+        [Test]
+        public void GetAllSearchQueries_SearchQueriesExist_ReturnsListOfSearchQueries()
+        {
+            //Arrange
+            int notExpectedCount = 0;
 
             var listOfQueries = new List<SearchQuery>();
             listOfQueries.Add(new SearchQuery
@@ -35,18 +36,11 @@ namespace SearcherApplication.DAL.Tests.RepositoryTests
                 QueryText = "Skateboard"
             });
 
-            contextFaker.SearchResults.AddRange(listOfResults);
-            contextFaker.SearchQueries.AddRange(listOfQueries);
+            var contextMockHelper = new ContextMockHelper()
+                .Build<SearchQuery>(listOfQueries);
 
-            _searchRepository = new SearchRepository(contextFaker.FakeContext);
-        }
+            _searchRepository = new SearchRepository(contextMockHelper.FakeContext);
 
-        [Test]
-        public void SearchRepository_GetAllSearchQueries_ReturnsListOfSearchQueries()
-        {
-            //Arrange
-            int notExpectedCount = 0;
-            
             //Act
             IEnumerable<SearchQuery> result = _searchRepository.GetAllSearchQueries();
 
@@ -56,12 +50,34 @@ namespace SearcherApplication.DAL.Tests.RepositoryTests
         }
 
         [Test]
-        public void SearchRepository_GetSearchResultsByQueryId_ReturnsListOfSearchResults()
+        public void GetSearchResultsByQueryId_SearchQueryIdExisted_ReturnsListOfSearchResults()
         {
             //Arrange
             int searchQueryId = 222;
             int notExpectedCount = 0;
-            
+
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world",
+                SearchQueryId = 222
+            });
+
+            var listOfQueries = new List<SearchQuery>();
+            listOfQueries.Add(new SearchQuery
+            {
+                Id = 222,
+                QueryText = "Skateboard"
+            });
+
+            var contextMockHelper = new ContextMockHelper()
+                .Build<SearchQuery>(listOfQueries)
+                .Build<SearchResult>(listOfResults);
+
+            _searchRepository = new SearchRepository(contextMockHelper.FakeContext);
+
             //Act
             IEnumerable<SearchResult> result = _searchRepository.GetSearchResultsByQueryId(searchQueryId);
 
@@ -71,10 +87,31 @@ namespace SearcherApplication.DAL.Tests.RepositoryTests
         }
 
         [Test]
-        public void SearchRepository_GetSearchResultsByQueryId_ReturnsNullWhenQueryIdIsLesserThanOne()
+        public void GetSearchResultsByQueryId_SearchQueryIdLesserThanOne_ReturnsNull()
         {
             //Arrange
             int searchQueryId = 0;
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world",
+                SearchQueryId = 222
+            });
+
+            var listOfQueries = new List<SearchQuery>();
+            listOfQueries.Add(new SearchQuery
+            {
+                Id = 222,
+                QueryText = "Skateboard"
+            });
+
+            var contextMockHelper = new ContextMockHelper()
+                .Build<SearchQuery>(listOfQueries)
+                .Build<SearchResult>(listOfResults);
+
+            _searchRepository = new SearchRepository(contextMockHelper.FakeContext);
 
             //Act
             IEnumerable<SearchResult> result = _searchRepository.GetSearchResultsByQueryId(searchQueryId);

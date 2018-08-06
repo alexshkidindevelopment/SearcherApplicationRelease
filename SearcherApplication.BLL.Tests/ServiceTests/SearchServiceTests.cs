@@ -30,20 +30,35 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
 
         //TODO: Need a reworking
         [Test]
-        public void SearchService_GetSearchResultsAsync_ReturnsListOfSearchResults()
+        public void GetSearchResultsAsync_QueryIsValid_ReturnsListOfSearchResults()
         {
             //Arrange
             var query = "Skateboard";
+            var fakeGoogleSearcher = A.Fake<GoogleSearcher>();
+            var fakeBingSearcher = A.Fake<BingSearcher>();
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 1111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world"
+            });
+
+            A.CallTo(() => fakeGoogleSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
+            A.CallTo(() => fakeBingSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
+
             int notExpectedResultCount = 0;
             ConfigurationManager.AppSettings["GoogleSearchEnabled"] = "true";
             ConfigurationManager.AppSettings["BingSearchEnabled"] = "true";
             ConfigurationManager.AppSettings["BingApiUrl"] = "https://api.cognitive.microsoft.com/bing/v7.0/search";
 
             A.CallTo(() => _searcherFactory.CreateGoogleSearcher())
-                .Returns(new GoogleSearcher("AIzaSyCO4kYnDH22vhXPw4VQBjxczUT7hp1egAo", "005622240092378482429:d5rlwol90fg"));
+                .Returns(fakeGoogleSearcher);
 
             A.CallTo(() => _searcherFactory.CreateBingSearcher())
-                .Returns(new BingSearcher("a21e4c95836141d7b75f311c6ba9fe21"));
+                .Returns(fakeBingSearcher);
 
             //Act
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
@@ -54,10 +69,24 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
         }
 
         [Test]
-        public void SearchService_GetSearchResultsAsync_ReturnsNullWhenQueryNullOrEmpty()
+        public void GetSearchResultsAsync_QueryNullOrEmpty_ReturnsNullWhenQueryNullOrEmpty()
         {
             //Arrange
             var query = "";
+            var fakeGoogleSearcher = A.Fake<GoogleSearcher>();
+            var fakeBingSearcher = A.Fake<BingSearcher>();
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 1111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world"
+            });
+
+            A.CallTo(() => fakeGoogleSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
+            A.CallTo(() => fakeBingSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
 
             //Act
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
@@ -67,10 +96,24 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
         }
 
         [Test]
-        public void SearchService_GetSearchResultsAsync_ReturnNullWhenFlagsAreNotValid()
+        public void GetSearchResultsAsync_NotValidFlags_ReturnsNull()
         {
             //Arrange
             var query = "Skateboard";
+            var fakeGoogleSearcher = A.Fake<GoogleSearcher>();
+            var fakeBingSearcher = A.Fake<BingSearcher>();
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 1111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world"
+            });
+
+            A.CallTo(() => fakeGoogleSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
+            A.CallTo(() => fakeBingSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
             ConfigurationManager.AppSettings["GoogleSearchEnabled"] = "null";
 
             //Act
@@ -81,19 +124,35 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
         }
 
         [Test]
-        public void SearchService_GetSearchResultsAsync_ReturnsNullWhenListOfTasksIsEmpty()
+        public void GetSearchResultsAsync_FlagsAreFalse_ReturnsNull()
         {
             //Arrange
             var query = "Skateboard";
+            var fakeGoogleSearcher = A.Fake<GoogleSearcher>();
+            var fakeBingSearcher = A.Fake<BingSearcher>();
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 1111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world"
+            });
+
+            A.CallTo(() => fakeGoogleSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
+            A.CallTo(() => fakeBingSearcher.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
+
+
             ConfigurationManager.AppSettings["GoogleSearchEnabled"] = "false";
             ConfigurationManager.AppSettings["BingSearchEnabled"] = "false";
             ConfigurationManager.AppSettings["BingApiUrl"] = "https://api.cognitive.microsoft.com/bing/v7.0/search";
 
             A.CallTo(() => _searcherFactory.CreateGoogleSearcher())
-                .Returns(new GoogleSearcher("AIzaSyCO4kYnDH22vhXPw4VQBjxczUT7hp1egAo", "005622240092378482429:d5rlwol90fg"));
+                .Returns(fakeGoogleSearcher);
 
             A.CallTo(() => _searcherFactory.CreateBingSearcher())
-                .Returns(new BingSearcher("a21e4c95836141d7b75f311c6ba9fe21"));
+                .Returns(fakeBingSearcher);
 
             //Act
             List<SearchResult> result = _searchService.GetSearchResultsAsync(query).Result;
@@ -103,7 +162,7 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
         }
 
         [Test]
-        public void SearchService_GetAllSearchQueries_ReturnsListOfSearchQueries()
+        public void GetAllSearchQueries_SearchQueriesExists_ReturnsListOfSearchQueries()
         {
             //arrange
             var listOfResults = new List<SearchQuery>();
@@ -124,10 +183,10 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
         }
 
         [Test]
-        public void SearchService_GetSearchResultsByQueryId_ReturnsListOfSearchResults()
+        public void GetSearchResultsByQueryId_QueryIdIsValid_ReturnsListOfSearchResults()
         {
             //Arrange
-            int id = 4;
+            int id = 222;
             var listOfResults = new List<SearchResult>();
             listOfResults.Add(new SearchResult
             {
@@ -147,10 +206,20 @@ namespace SearcherApplication.BLL.Tests.ServiceTests
         }
 
         [Test]
-        public void SearchService_GetSearchResultsByQueryId_ReturnsNullWhenIdIsLesserThanOne()
+        public void GetSearchResultsByQueryId_QueryIdLesserThanOne_ReturnsNull()
         {
             //Arrange
             int id = -1;
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 1111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world"
+            });
+
+            A.CallTo(() => _searchRepository.GetSearchResultsByQueryId(id))
+                .Returns(listOfResults);
 
             //Act
             IEnumerable<SearchResult> result = _searchService.GetSearchResultsByQueryId(id);

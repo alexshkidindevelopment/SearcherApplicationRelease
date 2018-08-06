@@ -22,7 +22,7 @@ namespace SearcherApplication.SearchEngine.Searchers
             _apiKey = apiKey;
         }
 
-        public async Task<List<SearchResult>> GetSearchResultsAsync(string query)
+        public async virtual Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
             if (string.IsNullOrEmpty(query))
             {
