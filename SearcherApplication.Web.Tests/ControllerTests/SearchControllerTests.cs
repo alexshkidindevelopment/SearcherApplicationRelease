@@ -65,6 +65,8 @@ namespace SearcherApplication.Web.Tests
             //Arrange
             var query = "Skateboard";
             var expectedResult = "EmptySearch";
+            A.CallTo(() => _searchService.GetSearchResultsAsync(query))
+                .Returns(new List<SearchResult>());
 
             //Act
             var result = _searchController.GetSearchResults(query).Result as ViewResult;
@@ -79,6 +81,15 @@ namespace SearcherApplication.Web.Tests
             //Arrange
             var query = "";
             var expectedResult = "EmptySearch";
+            var listOfResults = new List<SearchResult>();
+            listOfResults.Add(new SearchResult
+            {
+                Id = 1111,
+                Link = "www.skateboard.com",
+                Title = "Best skateboards in the world"
+            });
+            A.CallTo(() => _searchService.GetSearchResultsAsync(query))
+                .Returns(listOfResults);
 
             //Act
             var result = _searchController.GetSearchResults(query).Result as ViewResult;
