@@ -102,7 +102,7 @@ namespace SearcherApplication.Web.Tests
         public void GetSearchHistory_SearchQueriesExists_ReturnsActionResult()
         {
             //Act
-            var result = _searchController.GetSearchHistory();
+            var result = _searchController.GetSearchHistory() as ViewResult;
 
             //Assert
             Assert.IsInstanceOf<ActionResult>(result);
@@ -151,7 +151,7 @@ namespace SearcherApplication.Web.Tests
             int? id = 4;
 
             //Act
-            var result = _searchController.GetQueryResultsById(id);
+            var result = _searchController.GetQueryResultsById(id) as ViewResult;
 
             //Assert
             Assert.IsInstanceOf<ActionResult>(result);
