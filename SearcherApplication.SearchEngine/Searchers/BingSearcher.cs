@@ -51,6 +51,11 @@ namespace SearcherApplication.SearchEngine.Searchers
                 await Task.Delay(10000);
                 return null;
             }
+            catch (Exception ex)
+            {
+                await Task.Delay(10000);
+                return null;
+            }
         }
 
         private List<SearchResult> Map(BingResultModel search)

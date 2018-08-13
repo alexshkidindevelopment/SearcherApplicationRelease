@@ -3,6 +3,7 @@ using Google.Apis.Customsearch.v1.Data;
 using Google.Apis.Services;
 using SearcherApplication.Models.DataModels;
 using SearcherApplication.SearchEngine.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using static Google.Apis.Customsearch.v1.CseResource;
@@ -25,14 +26,22 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         public async virtual Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
-            if (string.IsNullOrEmpty(query))
+            try
             {
+                if (string.IsNullOrEmpty(query))
+                {
+                    return null;
+                }
+
+                ListRequest listRequest = CreateListRequest(query);
+
+                return await Task.Run(() => { return Map(listRequest.Execute()); });
+            }
+            catch(Exception ex)
+            {
+                await Task.Delay(10000);
                 return null;
             }
-
-            ListRequest listRequest = CreateListRequest(query);
-
-            return await Task.Run(() => { return Map(listRequest.Execute()); });
         }
 
         private List<SearchResult> Map(Search search)

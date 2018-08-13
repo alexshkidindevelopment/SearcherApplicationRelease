@@ -48,6 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -63,9 +64,18 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearcherTests\BingSearcherTests.cs" />
+    <Compile Include="SearcherTests\GoogleSearcherTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SearcherTests\" />
+    <ProjectReference Include="..\SearcherApplication.Models\SearcherApplication.Models.csproj">
+      <Project>{4B5515D5-C178-48B7-8E0C-702C432EA8FF}</Project>
+      <Name>SearcherApplication.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SearcherApplication.SearchEngine\SearcherApplication.SearchEngine.csproj">
+      <Project>{AE1A6B14-A252-4100-A7BF-B2E514267D21}</Project>
+      <Name>SearcherApplication.SearchEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
