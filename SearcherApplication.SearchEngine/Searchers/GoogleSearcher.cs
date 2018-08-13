@@ -26,6 +26,7 @@ namespace SearcherApplication.SearchEngine.Searchers
 
         public async virtual Task<List<SearchResult>> GetSearchResultsAsync(string query)
         {
+            //TODO: Need to add a logger, NLog for example
             try
             {
                 if (string.IsNullOrEmpty(query))

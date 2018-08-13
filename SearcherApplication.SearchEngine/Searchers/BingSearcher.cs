@@ -31,6 +31,7 @@ namespace SearcherApplication.SearchEngine.Searchers
 
             WebRequest wbReq = CreateRequest(query);
 
+            //TODO: Need to add a logger, NLog for example
             try
             {
                 using (var hResp = await wbReq.GetResponseAsync() as HttpWebResponse)
